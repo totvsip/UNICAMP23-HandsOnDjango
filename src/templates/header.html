@@ -1,0 +1,28 @@
+{#{% if is_authencated %}#}
+<div class="mt-2">
+    <ul class="container nav nav-pills nav-fill gap-2 p-1 small bg-primary rounded-5 shadow-sm" id="pillNav1"
+        style="--bs-nav-link-color: var(--bs-white); --bs-nav-pills-link-active-color: var(--bs-primary); --bs-nav-pills-link-active-bg: var(--bs-white);">
+        <!-- Abas no cabeçalho -->
+        <li class="nav-item" role="presentation">
+            <a class="nav-link rounded-5 {{ is_home_tab_active }}" id="home-tab1" href="{% url 'home' %}">
+                <i class="fa-solid fa-building-columns"></i>
+                Home</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link rounded-5 {{ is_entradas_tab_active }}" id="profile-tab1" href="{% url 'entradas' %}">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                Entradas</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link rounded-5 {{ is_saidas_tab_active }}" id="contact-tab1" href="{% url 'saidas' %}">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Saídas</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link rounded-5 {{ is_config_tab_active }}" id="setup-tab1" href="{% url 'config' %}">
+                <i class="fa-solid fa-gear"></i>
+                Config</a>
+        </li>
+    </ul>
+</div>
+{#{% endif %}#}

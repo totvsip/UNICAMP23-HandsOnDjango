@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}TBank{% endblock %}
+
+{% block container_content %}
+    <div class="card d-flex flex-wrap">
+        <div class="p-3">
+            <div class="card" style="background-color: rgb(15, 141, 19)">
+                <h5 class="card-header">Entradas</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Total nos últimos 30 dias R$ 8.922,93</h5>
+                    <a href="nav_tabs_base.html" class="btn btn-primary"
+                    >Incluir nova Entrada</a
+                    >
+                </div>
+            </div>
+        </div>
+
+        <div class="p-3">
+            <div class="card" style="background-color: rgb(221, 23, 23)">
+                <h5 class="card-header">Saídas</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Total nos últimos 30 dias R$ 8.922,93</h5>
+                    <a href="nav_tabs_base.html" class="btn btn-primary"
+                    >Incluir nova Saída</a
+                    >
+                </div>
+            </div>
+        </div>
+
+        <div class="p-3">
+            <div class="card" style="background-color: rgb(33, 6, 204)">
+                <h5 class="card-header">Balanço</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Balanço geral nos útumos 30 dias.</h5>
+                    <a href="nav_tabs_base.html" class="btn btn-primary">Analisar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

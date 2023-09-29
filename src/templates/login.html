@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}TBank - Login{% endblock %}
+
+{% block container_content %}
+    <div class="text-center">
+  <img
+    alt=""
+    class="mb-4 mt-5"
+    height="100"
+    width="100"
+    src="{% static 'img/totvs_logo_branco.png' %}"
+  />
+  <form class="form-signin">
+    <h1 class="h3 mb-4 font-weight-normal">Faça o seu login</h1>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1"
+        ><span class="fa fa-user"></span
+      ></span>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Usuário"
+        aria-label="Usuário"
+        aria-describedby="basic-addon1"
+      />
+    </div>
+
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1"
+        ><span class="fa fa-lock"></span
+      ></span>
+
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Senha"
+        aria-label="Username"
+        aria-describedby="basic-addon1"
+      />
+    </div>
+
+    <div class="d-grid gap-1 mt-5">
+      <a class="btn btn-primary" href="{% url 'home' %}" type="button">Login</a>
+    </div>
+
+  </form>
+
+</div>
+
+{% endblock %}

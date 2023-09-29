@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block title %}TBank - Config{% endblock %}
+
+{% block container_content %}
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">Usuário</h1>
+
+
+            <form class="form-signin">
+
+                <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">
+          <span class="fa fa-user"></span>
+        </span>
+                    <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Usuário"
+                            readonly="true"
+                            value="Usuário Teste"
+                    />
+                </div>
+
+                <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">
+          <span class="fa-solid fa-envelopes-bulk"></span>
+        </span>
+                    <input
+                            type="text"
+                            class="form-control"
+                            placeholder="CEP"
+                    />
+                </div>
+
+                <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">
+          <span class="fa-solid fa-road"></span>
+        </span>
+                    <input
+                            type="text"
+                            class="form-control"
+                            readonly="true"
+                            placeholder="Rua"
+                    />
+                </div>
+
+                <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">
+          <span class="fa-solid fa-hashtag"></span>
+        </span>
+                    <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Numero"
+                    />
+                </div>
+
+                <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">
+          <span class="fa-solid fa-map-location-dot"></span>
+        </span>
+                    <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Complemento"
+                    />
+                </div>
+
+                <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">
+          <span class="fa-solid fa-city"></span>
+        </span>
+                    <input
+                            type="text"
+                            class="form-control"
+                            readonly="true"
+                            placeholder="Cidade"
+                    />
+                </div>
+
+                <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">
+          <span class="fa-brands fa-usps"></span>
+        </span>
+                    <input
+                            type="text"
+                            class="form-control"
+                            readonly="true"
+                            placeholder="Estado"
+                    />
+                </div>
+
+                <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">
+          <span class="fa fa-lock"></span>
+        </span>
+                    <input
+                            type="password"
+                            class="form-control"
+                            placeholder="Senha"
+                    />
+                </div>
+
+                <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">
+          <span class="fa fa-lock"></span>
+        </span>
+                    <input
+                            type="password"
+                            class="form-control"
+                            placeholder="Confirmação da Senha"
+                    />
+                </div>
+
+                <div class="d-grid gap-1 mt-5">
+                    <a class="btn btn-success" href="#" type="submit">Salvar</a>
+                    <a class="btn btn-primary" href="{% url 'home' %}" type="submit">Cancelar</a>
+                    <a class="btn btn-danger" href="{% url 'login' %}" type="submit">Logout</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <p class="mt-5 mb-3 text-muted">TOTVS IP/TM ©2023</p>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}TBank Saídas{% endblock %}
+
+{% include 'header.html' %}
+
+{% block container_content %}
+    <div class="card d-flex flex-wrap">
+
+        <div class="p-3">
+            <div class="card" style="background-color: rgb(221, 23, 23);">
+                <h5 class="card-header">Saídas</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Total nos últimos 30 dias R$ 8.922,93</h5>
+                    <a href="nav_tabs_base.html" class="btn btn-primary">Incluir nova Saída</a>
+                </div>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Data</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Descrição</th>
+                <th class="text-end" scope="col">Valor</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">10/10/10</th>
+                <td>Alimentação</td>
+                <td>Almoço</td>
+                <td class="text-end">R$ 123,87</td>
+            </tr>
+            <tr>
+                <th scope="row">10/10/10</th>
+                <td>Alimentação</td>
+                <td>Almoço</td>
+                <td class="text-end">R$ 123,87</td>
+            </tr>
+            <tr>
+                <th scope="row">10/10/10</th>
+                <td>Alimentação</td>
+                <td>Almoço</td>
+                <td class="text-end">R$ 123,87</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}

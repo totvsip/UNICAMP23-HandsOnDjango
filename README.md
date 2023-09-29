@@ -8,6 +8,10 @@ Bem-vindos ao universo da inovação e da tecnologia! Hoje, embarcaremos juntos 
 
 ## Principais Links
 
+### Apresentação
+Veja a apresentação [aqui](/docs/TOTVS%20UNICAMP%202023%20-%20AWS%20-%20Django.pdf)
+
+
 ### Passo a Passo
 Veja a documentação [aqui](hands_on/STEP_by_STEP.md)
 

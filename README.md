@@ -13,4 +13,4 @@ Veja a documentação [aqui](hands_on/STEP_by_STEP.md)
 
 
 ### Código Fonte
-Veja o código fonte [aqui](src/)
+Veja o código fonte [aqui](src/README.md)

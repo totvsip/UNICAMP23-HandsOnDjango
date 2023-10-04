@@ -339,7 +339,7 @@ python manage.py migrate
 ```python
 from django.contrib import admin
 from django.utils.html import format_html
-from app.models import Usuario, Categoria, Movimento, SaldoInicial
+from app.models import Categoria, Movimento, SaldoInicial
 
 
 @admin.register(Categoria)
@@ -353,7 +353,7 @@ class CategoriaAdmin(admin.ModelAdmin):
 
 @admin.register(Movimento)
 class MovimentoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'usuario', 'categoria', 'data_movimento', 'descricao', 'valor', 'data_criacao')
+    list_display = ('id', 'categoria', 'data_movimento', 'descricao', 'valor', 'data_criacao')
     list_filter = ('categoria',)
     search_fields = ('categoria',)
     list_per_page = 30
@@ -361,7 +361,7 @@ class MovimentoAdmin(admin.ModelAdmin):
     
     
 @admin.register(SaldoInicial)
-class MovimentoAdmin(admin.ModelAdmin):
+class SaldoInicialAdmin(admin.ModelAdmin):
     list_display = ('id', 'valor_inicial', 'data_criacao')
     ordering = ('id',)
 ```

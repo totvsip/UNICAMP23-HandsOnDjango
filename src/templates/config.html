@@ -1,128 +1,197 @@
 {% extends 'base.html' %}
-
 {% block title %}TBank - Config{% endblock %}
-
 {% block container_content %}
-    <div class="card">
-        <div class="card-body">
-            <h1 class="card-title">Usuário</h1>
 
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title">Usuário</h1>
 
-            <form class="form-signin">
+        <form class="form-signin" method="post" action="{% url 'config' %}">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <span class="fa fa-user"></span>
+                </span>
+                <input id="primeiro_nome" name="primeiro_nome" type="text" required class="form-control"
+                    placeholder="Primeiro nome" value="{{ primeiro_nome }}" />
+            </div>
 
-                <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">
-          <span class="fa fa-user"></span>
-        </span>
-                    <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Usuário"
-                            readonly="true"
-                            value="Usuário Teste"
-                    />
-                </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <span class="fa fa-signature"></span>
+                </span>
+                <input id="segundo_nome" name="segundo_nome" type="text" required class="form-control"
+                    placeholder="Segundo nome" value="{{ segundo_nome }}" />
+            </div>
 
-                <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">
-          <span class="fa-solid fa-envelopes-bulk"></span>
-        </span>
-                    <input
-                            type="text"
-                            class="form-control"
-                            placeholder="CEP"
-                    />
-                </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <span class="fa-solid fa-envelopes-bulk"></span>
+                </span>
+                <input id="cep" name="cep" type="text" required class="form-control" maxlength="9" placeholder="CEP"
+                    value="{{ cep }}" onkeyup="trataCep(event)" onfocusout="buscaCep()">
+                <span class="input-group-text"> <a class="fa fa-search" onclick="buscaCep()"></a></span>
+            </div>
 
-                <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">
-          <span class="fa-solid fa-road"></span>
-        </span>
-                    <input
-                            type="text"
-                            class="form-control"
-                            readonly="true"
-                            placeholder="Rua"
-                    />
-                </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <span class="fa-solid fa-road"></span>
+                </span>
+                <input id="rua" name="rua" type="text" required class="form-control" placeholder="Rua"
+                    value="{{ rua }}" />
+            </div>
 
-                <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">
-          <span class="fa-solid fa-hashtag"></span>
-        </span>
-                    <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Numero"
-                    />
-                </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <span class="fa-solid fa-hashtag"></span>
+                </span>
+                <input id="numero" name="numero" type="text" required class="form-control" placeholder="Numero"
+                    value="{{ numero }}" />
+            </div>
 
-                <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">
-          <span class="fa-solid fa-map-location-dot"></span>
-        </span>
-                    <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Complemento"
-                    />
-                </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <span class="fa-solid fa-map-location-dot"></span>
+                </span>
+                <input id="complemento" name="complemento" type="text" class="form-control" placeholder="Complemento"
+                    value="{{ complemento }}" />
+            </div>
 
-                <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">
-          <span class="fa-solid fa-city"></span>
-        </span>
-                    <input
-                            type="text"
-                            class="form-control"
-                            readonly="true"
-                            placeholder="Cidade"
-                    />
-                </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <span class="fa-solid fa-tree-city"></span>
+                </span>
+                <input id="bairro" name="bairro" type="text" required class="form-control" readonly="true"
+                    placeholder="Bairro" value="{{ bairro }}" />
+            </div>
 
-                <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">
-          <span class="fa-brands fa-usps"></span>
-        </span>
-                    <input
-                            type="text"
-                            class="form-control"
-                            readonly="true"
-                            placeholder="Estado"
-                    />
-                </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <span class="fa-solid fa-city"></span>
+                </span>
+                <input id="cidade" name="cidade" type="text" required class="form-control" readonly="true"
+                    placeholder="Cidade" value="{{ cidade }}" />
+            </div>
 
-                <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">
-          <span class="fa fa-lock"></span>
-        </span>
-                    <input
-                            type="password"
-                            class="form-control"
-                            placeholder="Senha"
-                    />
-                </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <span class="fa-brands fa-usps"></span>
+                </span>
+                <input id="estado" name="estado" type="text" required class="form-control" readonly="true"
+                    placeholder="Estado" value="{{ estado }}" />
+            </div>
 
-                <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">
-          <span class="fa fa-lock"></span>
-        </span>
-                    <input
-                            type="password"
-                            class="form-control"
-                            placeholder="Confirmação da Senha"
-                    />
-                </div>
+            <!-- Senhas -->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <span class="fa fa-lock"></span>
+                </span>
+                <input id="id_password1" name="password1" type="password" class="form-control" placeholder="Senha"
+                       oninput="validatePasswords()"/>
+            </div>
 
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <span class="fa fa-lock"></span>
+                </span>
+                <input id="id_password2" name="password2" type="password" class="form-control"
+                    placeholder="Confirmação da Senha" oninput="validatePasswords()"/>
+            </div>
+            <span id="senha-2-error" class="error-message"></span>
+            <!-- Final Senhas -->
+
+            <div class="d-grid gap-1 mt-5">
+                <button id="salvar" class="btn btn-success" type="submit">Salvar</button>
+                <a id="cancelar" class="btn btn-primary" href="{% url 'home' %}">Cancelar</a>
+                <a id="logout" class="btn btn-danger" href="{% url 'logout' %}">Logout</a>
                 <div class="d-grid gap-1 mt-5">
-                    <a class="btn btn-success" href="#" type="submit">Salvar</a>
-                    <a class="btn btn-primary" href="{% url 'home' %}" type="submit">Cancelar</a>
-                    <a class="btn btn-danger" href="{% url 'login' %}" type="submit">Logout</a>
+                    <p></p>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
+</div>
+<div class="d-grid gap-1 mt-5">
+    <p></p>
+</div>
 
-    <p class="mt-5 mb-3 text-muted">TOTVS IP/TM ©2023</p>
+{# TODO: Validar porque o trecho nao funciona no main.js #}
+<script>
+
+const limpaFormCep = () => {
+    document.getElementById("rua").value = "";
+    document.getElementById("bairro").value = "";
+    document.getElementById("cidade").value = "";
+    document.getElementById("uf").value = "";
+};
+
+const trataCep = (event) => {
+    let input = event.target;
+    input.value = mascaraDoCep(input.value);
+};
+
+const mascaraDoCep = (value) => {
+    if (!value) return "";
+    value = value.replace(/\D/g, "");
+    value = value.replace(/(\d{5})(\d)/, "$1-$2");
+    return value;
+};
+
+const meu_retorno = (conteudo) => {
+    if (!("erro" in conteudo)) {
+        //Atualiza os campos com os valores.
+        document.getElementById("rua").value = conteudo.logradouro;
+        document.getElementById("bairro").value = conteudo.bairro;
+        document.getElementById("cidade").value = conteudo.localidade;
+        document.getElementById("estado").value = conteudo.uf;
+    } //end if.
+    else {
+        //CEP não Encontrado.
+        limpaFormCep();
+        alert("CEP não encontrado.");
+    }
+};
+
+const buscaCep = () => {
+    //Nova variável "cep" somente com dígitos.
+    let cep = document.getElementById("cep").value.replace(/\D/g, "");
+    alert("buscando cep" + cep);
+
+    //Verifica se campo cep possui valor informado.
+    if (cep != "") {
+        //Expressão regular para validar o CEP.
+        var validacep = /^[0-9]{8}$/;
+
+        //Valida o formato do CEP.
+        if (validacep.test(cep)) {
+            //Preenche os campos com "..." enquanto consulta webservice.
+            document.getElementById("rua").value = "...";
+            document.getElementById("bairro").value = "...";
+            document.getElementById("cidade").value = "...";
+            document.getElementById("estado").value = "...";
+
+            //Cria um elemento javascript.
+            var script = document.createElement("script");
+
+            //Sincroniza com o callback.
+            script.src =
+                "https://viacep.com.br/ws/" + cep + "/json/?callback=meu_retorno";
+
+            //Insere script no documento e carrega o conteúdo.
+            document.body.appendChild(script);
+        } //end if.
+        else {
+            //cep é inválido.
+            limpaFormCep();
+            alert("Formato de CEP inválido.");
+        }
+    } //end if.
+    else {
+        //cep sem valor, limpa formulário.
+        limpaFormCep();
+    }
+};
+
+</script>
 
 {% endblock %}

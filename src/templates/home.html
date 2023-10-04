@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}TBank{% endblock %}
+{% block title %}TBank - Home{% endblock %}
 
 {% block container_content %}
     <div class="card d-flex flex-wrap">
@@ -8,10 +8,8 @@
             <div class="card" style="background-color: rgb(15, 141, 19)">
                 <h5 class="card-header">Entradas</h5>
                 <div class="card-body">
-                    <h5 class="card-title">Total nos últimos 30 dias R$ 8.922,93</h5>
-                    <a href="nav_tabs_base.html" class="btn btn-primary"
-                    >Incluir nova Entrada</a
-                    >
+                    <h5 class="card-title">Total nos últimos 30 dias {{ valor }}</h5>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#entradaModal">Incluir Nova Entrada</button>
                 </div>
             </div>
         </div>
@@ -20,10 +18,8 @@
             <div class="card" style="background-color: rgb(221, 23, 23)">
                 <h5 class="card-header">Saídas</h5>
                 <div class="card-body">
-                    <h5 class="card-title">Total nos últimos 30 dias R$ 8.922,93</h5>
-                    <a href="nav_tabs_base.html" class="btn btn-primary"
-                    >Incluir nova Saída</a
-                    >
+                    <h5 class="card-title">Total nos últimos 30 dias {{ valor }}</h5>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#saidaModal">Incluir nova Saída</button>
                 </div>
             </div>
         </div>
@@ -32,11 +28,86 @@
             <div class="card" style="background-color: rgb(33, 6, 204)">
                 <h5 class="card-header">Balanço</h5>
                 <div class="card-body">
-                    <h5 class="card-title">Balanço geral nos útumos 30 dias.</h5>
-                    <a href="nav_tabs_base.html" class="btn btn-primary">Analisar</a>
+                    <h5 class="card-title">Balanço geral nos últimos 30 dias.</h5>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#analiseModal">Analisar</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <!--Modal Entrada-->
+    <div class="modal fade" id="entradaModal" tabindex="-1" aria-labelledby="entradaModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="entradaModalLabel">Incluir Nova Entrada</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="data" class="col-form-label">Data:</label>
+                <input type="date" class="form-control" id="data" required>
+              </div>
+              <div class="mb-3">
+                <label for="categoria" class="col-form-label">Categoria:</label>
+                <input type="text" class="form-control" id="categoria" required>
+              </div>
+              <div class="mb-3">
+                <label for="descricao" class="col-form-label">Descrição:</label>
+                <textarea class="form-control" id="descricao" required></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="valor" class="col-form-label">Valor:</label>
+                <input type="number" class="form-control" id="valor" required>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-primary">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Final Modal Entrada-->
+
+    <!--Modal Saida-->
+    <div class="modal fade" id="saidaModal" tabindex="-1" aria-labelledby="saidaModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="saidaModalLabel">Incluir Nova Saida</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="data" class="col-form-label">Data:</label>
+                <input type="date" class="form-control" id="data" required>
+              </div>
+              <div class="mb-3">
+                <label for="categoria" class="col-form-label">Categoria:</label>
+                <input type="text" class="form-control" id="categoria" required>
+              </div>
+              <div class="mb-3">
+                <label for="descricao" class="col-form-label">Descrição:</label>
+                <textarea class="form-control" id="descricao" required></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="valor" class="col-form-label">Valor:</label>
+                <input type="number" class="form-control" id="valor" required>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-primary">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Final Modal Saida-->
+
 
 {% endblock %}

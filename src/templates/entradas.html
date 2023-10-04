@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}TBank Entradas{% endblock %}
+{% block title %}TBank - Entradas{% endblock %}
 
 {% include 'header.html' %}
 
@@ -11,7 +11,7 @@
             <div class="card" style="background-color: rgb(15, 141, 19);">
                 <h5 class="card-header">Entradas</h5>
                 <div class="card-body">
-                    <h5 class="card-title">Total nos últimos 30 dias R$ 8.922,93</h5>
+                    <h5 class="card-title">Total nos últimos 30 dias {{ valor_total }}</h5>
                     <a href="nav_tabs_base.html" class="btn btn-primary">Incluir nova Entrada</a>
                 </div>
             </div>
@@ -31,19 +31,19 @@
                 <th scope="row">10/10/10</th>
                 <td>Alimentação</td>
                 <td>Almoço</td>
-                <td class="text-end">R$ 123,87</td>
+                <td class="text-end">{{ valor }}</td>
             </tr>
             <tr>
                 <th scope="row">10/10/10</th>
                 <td>Alimentação</td>
                 <td>Almoço</td>
-                <td class="text-end">R$ 123,87</td>
+                <td class="text-end">{{ valor }}</td>
             </tr>
             <tr>
                 <th scope="row">10/10/10</th>
                 <td>Alimentação</td>
                 <td>Almoço</td>
-                <td class="text-end">R$ 123,87</td>
+                <td class="text-end">{{ valor }}</td>
             </tr>
             </tbody>
         </table>

@@ -12,37 +12,25 @@
     width="100"
     src="{% static 'img/totvs_logo_branco.png' %}"
   />
-  <form class="form-signin">
+  <form class="form-signin" method="post" action="{% url 'login' %}">
+      {% csrf_token %}
     <h1 class="h3 mb-4 font-weight-normal">Faça o seu login</h1>
     <div class="input-group mb-3">
-      <span class="input-group-text" id="basic-addon1"
-        ><span class="fa fa-user"></span
-      ></span>
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Usuário"
-        aria-label="Usuário"
-        aria-describedby="basic-addon1"
-      />
+      <span class="input-group-text" id="basic-addon1">
+          <span class="fa fa-user"></span>
+      </span>
+      <input id="username" name="username" type="text" class="form-control" placeholder="Usuário"/>
     </div>
 
     <div class="input-group mb-3">
-      <span class="input-group-text" id="basic-addon1"
-        ><span class="fa fa-lock"></span
-      ></span>
-
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Senha"
-        aria-label="Username"
-        aria-describedby="basic-addon1"
-      />
+      <span class="input-group-text" id="basic-addon1">
+          <span class="fa fa-lock"></span>
+      </span>
+      <input id="password" name="password" type="password" class="form-control" placeholder="Senha"/>
     </div>
 
     <div class="d-grid gap-1 mt-5">
-      <a class="btn btn-primary" href="{% url 'home' %}" type="button">Login</a>
+      <button class="btn btn-primary" href="{% url 'login' %}" type="submit">Login</button>
     </div>
 
   </form>

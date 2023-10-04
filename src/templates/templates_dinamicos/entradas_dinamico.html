@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}TBank - Entradas{% endblock %}
+
+{% include 'header.html' %}
+
+{% block container_content %}
+    <div class="card d-flex flex-wrap">
+        <div class="p-3">
+            <div class="card" style="background-color: rgb(15, 141, 19);">
+                <h5 class="card-header">Entradas</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Total nos últimos 30 dias {{ request.user.get_entradas_total_30_dias }}</h5>
+                    <button type="button" class="btn btn-primary" hx-get="/salvar_movimento/?tipo_movimento=entrada" hx-target="#modalGenerico">Incluir Nova Entrada</button>
+                </div>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Data</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Descrição</th>
+                    <th class="text-end" scope="col">Valor</th>
+                    <th class="text-end" scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for movimento in movimentos_entrada %}
+                    <tr>
+                        <th scope="row">{{ movimento.data_movimento }}</th>
+                        <td>{{ movimento.categoria.descricao }}</td>
+                        <td>{{ movimento.descricao }}</td>
+                        <td class="text-end">R$ {{ movimento.valor }}</td>
+                        <td class="text-end">
+                            <a type="button" class="btn btn-primary btn-sm" hx-get="{% url 'editar_movimento' movimento.id %}" hx-trigger="click" hx-target="#modalGenerico"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a type="button" class="btn btn-danger btn-sm" hx-delete="/excluir_movimento/{{ movimento.id }}/" hx-confirm="Tem certeza de que deseja excluir este movimento?"><i class="fa-solid fa-x"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal Genérico -->
+    <div id="modal" class="modal fade">
+        <div id="modalGenerico" class="modal-dialog" hx-target="#this">
+        </div>
+    </div>
+    <!-- Final Modal Genérico -->
+
+{% endblock %}

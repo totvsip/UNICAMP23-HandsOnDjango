@@ -1,6 +1,9 @@
 from datetime import datetime
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models import Sum
+from django.utils import timezone
+
 
 estados_brasil = [
     ('AC', 'ACRE'),
@@ -52,9 +55,39 @@ class Usuario(AbstractUser):
     data_criacao = models.DateField('Data de Inclusão', default=datetime.now, blank=True)
 
     # Parte II do modelo
-    total_entradas = models.DecimalField('Total Entradasl', max_digits=10, decimal_places=2)
-    total_saidas = models.DecimalField('Total Saídas', max_digits=10, decimal_places=2)
-    salto_final = models.DecimalField('Saldo Final', max_digits=10, decimal_places=2)
+    total_entradas = models.DecimalField('Total Entradas', max_digits=10, decimal_places=2, blank=True, null=True)
+    total_saidas = models.DecimalField('Total Saídas', max_digits=10, decimal_places=2, blank=True, null=True)
+
+    # virar def
+    saldo_final = models.DecimalField('Saldo Final', max_digits=10, decimal_places=2, blank=True, null=True)
+
+    def get_entradas_total_30_dias(self):
+        data_atual = timezone.now()
+        data_inicial = data_atual - timezone.timedelta(days=30)
+
+        total_entrada_30_dias = Movimento.objects.filter(
+            usuario=self.id,
+            data_movimento__range=(data_inicial, data_atual),
+            categoria__tipo='R'
+        ).aggregate(total=Sum('valor'))['total'] or 0
+
+        self.total_entradas = total_entrada_30_dias
+        self.save()
+        return f'R$ {self.total_entradas:,.2f}'
+
+    def get_saidas_total_30_dias(self):
+        data_atual = timezone.now()
+        data_inicial = data_atual - timezone.timedelta(days=30)
+
+        total_saidas_30_dias = Movimento.objects.filter(
+            usuario=self.id,
+            data_movimento__range=(data_inicial, data_atual),
+            categoria__tipo='P'
+        ).aggregate(total=Sum('valor'))['total'] or 0
+
+        self.total_saidas = total_saidas_30_dias
+        self.save()
+        return f'R$ {self.total_saidas:,.2f}'
 
 
 class Categoria(models.Model):
@@ -67,7 +100,7 @@ class Categoria(models.Model):
     data_criacao = models.DateField('Data de Inclusão', default=datetime.now, blank=True)
 
     def __str__(self):
-        return '%s - (%s)', self.tipo, self.descricao
+        return f'{self.tipo} - ({self.descricao})'
 
 
 class Movimento(models.Model):
@@ -83,7 +116,7 @@ class Movimento(models.Model):
     data_criacao = models.DateField('Data de Inclusão', default=datetime.now, blank=True)
 
     def __str__(self):
-        return '%s - %s (%s)', self.categoria.descricao, self.descricao, self.valor
+        return f'{self.categoria.descricao} - {self.descricao} ({self.valor})'
 
 
 # Parte II do modelo

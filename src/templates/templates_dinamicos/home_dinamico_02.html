@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}TBank - Home{% endblock %}
+
+{% block container_content %}
+    <div class="card d-flex flex-wrap">
+        <div class="p-3">
+            <div class="card" style="background-color: rgb(15, 141, 19)">
+                <h5 class="card-header">Entradas</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Total nos últimos 30 dias {{ request.user.get_entradas_total_30_dias }}</h5>
+                    <button type="button" class="btn btn-primary" hx-get="/salvar_movimento/?tipo_movimento=entrada"
+                            hx-target="#modalGenerico">Incluir Nova Entrada
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-3">
+            <div class="card" style="background-color: rgb(221, 23, 23)">
+                <h5 class="card-header">Saídas</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Total nos últimos 30 dias {{ request.user.get_saidas_total_30_dias }}</h5>
+                    <button type="button" class="btn btn-primary" hx-get="/salvar_movimento/?tipo_movimento=saida"
+                            hx-target="#modalGenerico">Incluir Nova Saída
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-3">
+            <div class="card" style="background-color: rgb(33, 6, 204)">
+                <h5 class="card-header">Balanço</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Balanço geral nos últimos 4 meses.</h5>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modChart">
+                        Analisar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Genérico -->
+    <div id="modal" class="modal fade">
+        <div id="modalGenerico" class="modal-dialog" hx-target="#this">
+        </div>
+    </div>
+    <!-- Final Modal Genérico -->
+
+    <!-- Modal Gráfico -->
+    <div class="modal fade" id="modChart" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Gráfico</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <canvas id="canvas" width="80%" height="80%"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Final Modal Gráfico -->
+{% endblock %}
+
+
+{% block extra_body_content %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        {# GRÁFICO #}
+        ;(function () {
+            const ctx = document.getElementById("canvas").getContext("2d")
+            const myChart = new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: ["Jul", "Ago", "Set", "Out"],
+                    datasets: [
+                        {
+                            label: "Entradas",
+                            data: [6, 7, 6, 8],
+                            backgroundColor: "rgb(15, 141, 19)",
+                            borderColor: "rgb(15, 141, 19)",
+                            borderWidth: 1,
+                        },
+                        {
+                            label: "Saídas",
+                            data: [5, 11, 5, 5],
+                            backgroundColor: "rgb(221, 23, 23)",
+                            borderColor: "rgb(221, 23, 23)",
+                            borderWidth: 1,
+                        },
+                    ],
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                },
+            })
+        })()
+    </script>
+
+{% endblock %}

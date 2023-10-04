@@ -1,2 +1,5 @@
 django
 Pillow
+django-crispy-forms
+crispy_bootstrap5
+django-htmx

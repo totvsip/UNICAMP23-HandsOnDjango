@@ -28,6 +28,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# CORREÇÃO DO ERRO DE CSRF NO CLOUD 9
+CSRF_TRUSTED_ORIGINS = ['https://98d9aa5b75664f7689c4149e247f8b25.vfs.cloud9.us-east-2.amazonaws.com',
+                        'http://127.0.0.1:8000',
+                        ]
+
+
 # Controle da versão do sistema
 APP_VERSION = '0.1.001'
 
@@ -46,6 +52,10 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'django_htmx',
 ]
+
+# Adicione essas linhas para definir os pacotes de templates
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -79,9 +89,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'core.wsgi.application'
-
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # TODO: IMPORTANTE!
 # CORREÇÃO DO ERRO DE CSRF NO CLOUD 9

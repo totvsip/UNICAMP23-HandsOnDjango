@@ -65,44 +65,54 @@
     <!-- Final Modal Gráfico -->
 {% endblock %}
 
-
 {% block extra_body_content %}
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/decimal.js/10.3.1/decimal.min.js"></script>
 
-    <script>
-        {# GRÁFICO #}
-        ;(function () {
-            const ctx = document.getElementById("canvas").getContext("2d")
-            const myChart = new Chart(ctx, {
-                type: "bar",
-                data: {
-                    labels: ["Jul", "Ago", "Set", "Out"],
-                    datasets: [
-                        {
-                            label: "Entradas",
-                            data: [6, 7, 6, 8],
-                            backgroundColor: "rgb(15, 141, 19)",
-                            borderColor: "rgb(15, 141, 19)",
-                            borderWidth: 1,
-                        },
-                        {
-                            label: "Saídas",
-                            data: [5, 11, 5, 5],
-                            backgroundColor: "rgb(221, 23, 23)",
-                            borderColor: "rgb(221, 23, 23)",
-                            borderWidth: 1,
-                        },
-                    ],
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                        },
+
+<script>
+    {# GRÁFICO #}
+    ;(function () {
+        const ctx = document.getElementById("canvas").getContext("2d")
+
+        // Obtenha os meses dinamicamente a partir do contexto
+        const mesesLabels = {{ meses_labels|safe }}
+        const entradasPorMes = {{ entradas_por_mes|safe }}
+        const saidasPorMes = {{ saidas_por_mes|safe }}
+
+        console.log("Meses Labels:", mesesLabels);
+        console.log("Entradas Por Mês:", entradasPorMes);
+        console.log("Saídas Por Mês:", saidasPorMes);
+
+        const myChart = new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: mesesLabels,  // Use os meses aqui
+                datasets: [
+                    {
+                        label: "Entradas",
+                        data: entradasPorMes,  // Use os dados de entradas aqui
+                        backgroundColor: "rgb(15, 141, 19)",
+                        borderColor: "rgb(15, 141, 19)",
+                        borderWidth: 1,
+                    },
+                    {
+                        label: "Saídas",
+                        data: saidasPorMes,  // Use os dados de saídas aqui
+                        backgroundColor: "rgb(221, 23, 23)",
+                        borderColor: "rgb(221, 23, 23)",
+                        borderWidth: 1,
+                    },
+                ],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
                     },
                 },
-            })
-        })()
-    </script>
-
+            },
+        })
+    })()
+</script>
 {% endblock %}

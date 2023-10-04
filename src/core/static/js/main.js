@@ -30,3 +30,15 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('id_password1').addEventListener('input', validatePasswords);
     document.getElementById('id_password2').addEventListener('input', validatePasswords);
 // Validação das senhas
+
+
+fetch('http://127.0.0.1:8000/qualquer_requisicao')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Erro:', error));
+
+
+fetch('https://viacep.com.br/ws/01001000/json/')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Erro:', error));

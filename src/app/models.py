@@ -58,9 +58,6 @@ class Usuario(AbstractUser):
     total_entradas = models.DecimalField('Total Entradas', max_digits=10, decimal_places=2, blank=True, null=True)
     total_saidas = models.DecimalField('Total Saídas', max_digits=10, decimal_places=2, blank=True, null=True)
 
-    # virar def
-    saldo_final = models.DecimalField('Saldo Final', max_digits=10, decimal_places=2, blank=True, null=True)
-
     def get_entradas_total_30_dias(self):
         data_atual = timezone.now()
         data_inicial = data_atual - timezone.timedelta(days=30)
@@ -88,6 +85,9 @@ class Usuario(AbstractUser):
         self.total_saidas = total_saidas_30_dias
         self.save()
         return f'R$ {self.total_saidas:,.2f}'
+
+    def saldo_final(self):
+        return self.total_entradas - self.total_saidas
 
 
 class Categoria(models.Model):
@@ -119,7 +119,6 @@ class Movimento(models.Model):
         return f'{self.categoria.descricao} - {self.descricao} ({self.valor})'
 
 
-# Parte II do modelo
 class SaldoInicial(models.Model):
     valor_inicial = models.DecimalField('Valor Inicial', max_digits=10, decimal_places=2)
     data_criacao = models.DateField('Data de Inclusão', default=datetime.now, blank=True)

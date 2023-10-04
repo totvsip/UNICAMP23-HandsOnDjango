@@ -5,7 +5,6 @@ from django import forms
 
 class MovimentoForm(ModelForm):
     # Aqui ainda há a possibilidade de personalizar ou adicionar campos, exemplo:
-    # Neste exemplo, estamos personalizando a exibição como um campo de área de texto.
     descricao = forms.CharField(label='Descrição', max_length=100, required=False,
                                 widget=forms.Textarea())
     categoria = forms.ModelChoiceField(

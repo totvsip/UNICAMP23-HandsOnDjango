@@ -8,7 +8,7 @@
             <div class="card" style="background-color: rgb(15, 141, 19)">
                 <h5 class="card-header">Entradas</h5>
                 <div class="card-body">
-                    <h5 class="card-title">Total nos últimos 30 dias {{ valor }}</h5>
+                    <h5 class="card-title">Total nos últimos 30 dias {{ valor_entrada }}</h5>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#entradaModal">Incluir Nova Entrada</button>
                 </div>
             </div>
@@ -18,7 +18,7 @@
             <div class="card" style="background-color: rgb(221, 23, 23)">
                 <h5 class="card-header">Saídas</h5>
                 <div class="card-body">
-                    <h5 class="card-title">Total nos últimos 30 dias {{ valor }}</h5>
+                    <h5 class="card-title">Total nos últimos 30 dias {{ valor_saida }}</h5>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#saidaModal">Incluir nova Saída</button>
                 </div>
             </div>
@@ -108,6 +108,4 @@
       </div>
     </div>
     <!--Final Modal Saida-->
-
-
 {% endblock %}

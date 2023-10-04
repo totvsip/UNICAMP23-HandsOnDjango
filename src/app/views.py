@@ -5,7 +5,22 @@
 #
 # def login_view(request):
 #     context = {'is_show_header': 'false'}
-#     return render(request, 'login.html', context)
+#     if request.method == 'POST':
+#         username = request.POST['username']
+#         password = request.POST['password']
+#
+#         usuario = authenticate(username=username, password=password)
+#         if usuario is not None:
+#             if usuario.is_active:
+#                 login(request, usuario)
+#                 return redirect('home')
+#             else:
+#                 return redirect('login', context)
+#         else:
+#             return redirect('login', context)
+#
+#     else:
+#         return render(request, 'login.html', context)
 #
 # def home_view(request):
 #     context = {"is_home_tab_active": "active",
@@ -41,10 +56,12 @@ from django.urls import reverse
 from .models import *
 from .forms import *
 from django.contrib import messages
-from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse, JsonResponse
+from django.db.models import Sum
+import calendar
 
 
 def login_view(request):
@@ -76,6 +93,45 @@ def home_view(request):
 
 
 @login_required
+def home_view(request):
+    # Obter os meses com registros de movimento
+    meses_com_registros = Movimento.objects.filter(usuario=request.user).dates('data_movimento', 'month').distinct()
+
+    # Extrair os nomes dos meses
+    nomes_meses = [calendar.month_name[mes.month] for mes in meses_com_registros]
+
+    # Calcular a soma dos valores de entradas para cada mês
+    entradas_por_mes = []
+    for mes in meses_com_registros:
+        valor_entradas_mes = Movimento.objects.filter(
+            usuario=request.user,
+            categoria__tipo='R',
+            data_movimento__year=mes.year,
+            data_movimento__month=mes.month
+        ).aggregate(Sum('valor'))['valor__sum'] or 0
+        entradas_por_mes.append(float(valor_entradas_mes))
+
+    # Calcular a soma dos valores de saídas para cada mês
+    saidas_por_mes = []
+    for mes in meses_com_registros:
+        valor_saidas_mes = Movimento.objects.filter(
+            usuario=request.user,
+            categoria__tipo='P',
+            data_movimento__year=mes.year,
+            data_movimento__month=mes.month
+        ).aggregate(Sum('valor'))['valor__sum'] or 0
+        saidas_por_mes.append(float(valor_saidas_mes))
+
+    context = {
+        "is_home_tab_active": "active",
+        "meses_labels": nomes_meses,
+        "entradas_por_mes": entradas_por_mes,
+        "saidas_por_mes": saidas_por_mes,
+    }
+    return render(request, './templates_dinamicos/home_dinamico_02.html', context)
+
+
+@login_required
 def entradas_view(request):
     movimentos_entrada = Movimento.objects.filter(usuario=request.user, categoria__tipo='R')
     context = {
@@ -83,6 +139,7 @@ def entradas_view(request):
         "movimentos_entrada": movimentos_entrada,
     }
     return render(request, 'templates_dinamicos/entradas_dinamico.html', context)
+
 
 
 @login_required
@@ -201,11 +258,12 @@ def excluir_movimento(request, movimento_id):
 
 # --- COM DADOS OBTIDOS DO BANCO DE DADOS, DE FORMA DINÂMICA ---
 
-
+# --- LOGOUT ---
 @login_required
 def logout_view(request):
     logout(request)
     return redirect(reverse('login'))
+# --- LOGOUT ---
 
 
 def qualquer_requisicao(request):
